@@ -17,6 +17,6 @@ public class Analyzer extends GraphicsProgram {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    readLine("Press Enter to start ")
   }
-
 }
