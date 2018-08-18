@@ -1,3 +1,4 @@
+import java.awt.event.MouseEvent;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -6,19 +7,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.WatchService;
 import java.util.ArrayList;
-
 import acm.program.GraphicsProgram;
 
 @SuppressWarnings("serial")
 public class Main extends GraphicsProgram {
   final static boolean DEBUG = true;
-
   final static Path path = Paths.get("O:\\Studium\\Kompetenz\\feedback-server\\Node\\data");
-  WatchService watchService;
 
+  int phase = 0;
   ArrayList<Answer> AnswerQueue;
 
-  Boolean stopScan = false;
+  WatchThread watcher;
 
   public void init() {
     AnswerQueue = new ArrayList<Answer>();
@@ -27,6 +26,7 @@ public class Main extends GraphicsProgram {
 
       AnswerQueue = new ArrayList<Answer>();
       printIP();
+      addMouseListeners();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -35,7 +35,8 @@ public class Main extends GraphicsProgram {
 
   public void run() {
     WatchThread watcher = new WatchThread();
-    watcher.init(path, AnswerQueue, stopScan,DEBUG);
+    this.watcher = watcher;
+    watcher.init(path, AnswerQueue, DEBUG);
     watcher.start();
 
   }
@@ -49,28 +50,11 @@ public class Main extends GraphicsProgram {
     socket.close();
   }
 
-  void addAnswerToQueue(Path context) {
+  public void mouseClicked(MouseEvent e) {
+    if (phase == 0) {
+      watcher.stop();
+      phase++;
+    }
 
   }
-
-}
-
-class Answer {
-  public String name;
-  public String message;
-
-  public Answer(String name, String message) {
-    this.name = name;
-    this.message = message;
-  }
-
-  public Answer(String name) {
-    this.name = name;
-  }
-
-  public String toString() {
-    return "'" + name + "' wrote: \n" + message;
-
-  }
-
 }

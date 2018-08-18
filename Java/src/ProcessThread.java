@@ -2,27 +2,26 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class ProcessThread extends Thread {
   private Path path;
   @SuppressWarnings("unused")
-  private Boolean stopScan;
+  private WatchThread parent;
   private ArrayList<Answer> AnswerQueue;
   private boolean DEBUG;
 
-  public void init(ArrayList<Answer> AnswerQueue, Path path, Boolean stopScan, boolean DEBUG) {
+  public void init(ArrayList<Answer> AnswerQueue, Path path, boolean DEBUG) {
     this.path = path;
     this.AnswerQueue = AnswerQueue;
-    this.stopScan = stopScan;
     this.DEBUG = DEBUG;
   }
 
   public void run() {
+    // if (DEBUG)
+    System.out.println("ProcessThread started");
     try {
       Thread.sleep(50);
     } catch (InterruptedException e1) {
-      // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     try {
@@ -34,20 +33,13 @@ public class ProcessThread extends Thread {
       while ((line = bfr.readLine()) != null) {
         message += "\n" + line;
       }
-      if (name.equals("finia"))
-        adminIntervention(message);
-      else
-        AnswerQueue.add(new Answer(name, message));
+
+      AnswerQueue.add(new Answer(name, message));
       bfr.close();
 
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  private void adminIntervention(String message) {
-    if (message.equals("stopScan"))
-      stopScan = true;
   }
 
 }

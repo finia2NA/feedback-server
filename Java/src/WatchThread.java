@@ -1,3 +1,4 @@
+import java.awt.event.MouseEvent;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.StandardWatchEventKinds;
@@ -8,14 +9,19 @@ import java.util.ArrayList;
 
 public class WatchThread extends Thread {
   private boolean DEBUG = true;
-  private Boolean stopScan;
   private Path path;
   ArrayList<Answer> AnswerQueue;
 
-  public void init(Path path, ArrayList<Answer> AnswerQueue, Boolean stopScan, boolean DEBUG) {
+  /**
+   * 
+   * @param path
+   * @param AnswerQueue
+   * @param DEBUG
+   * @param stop
+   */
+  public void init(Path path, ArrayList<Answer> AnswerQueue, boolean DEBUG) {
     this.AnswerQueue = AnswerQueue;
     this.path = path;
-    this.stopScan = stopScan;
     this.DEBUG = DEBUG;
   }
 
@@ -38,19 +44,20 @@ public class WatchThread extends Thread {
           }
         }
         key.reset();
-        if (stopScan)
-          break;
       }
+
     } catch (Exception e) {
       e.printStackTrace();
     }
     if (DEBUG)
       System.out.println("exited scan mode!");
   }
+  
+
 
   private void processAnswer(Path context) {
     ProcessThread adder = new ProcessThread();
-    adder.init(AnswerQueue, context, stopScan, DEBUG);
+    adder.init(AnswerQueue, context, DEBUG);
     adder.start();
   }
 }
