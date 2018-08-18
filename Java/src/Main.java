@@ -25,6 +25,8 @@ public class Main extends GraphicsProgram {
 
   ArrayList<Answer> AnswerQueue;
 
+  boolean stopScan = false;
+
   public void init() {
     AnswerQueue = new ArrayList<Answer>();
     try {
@@ -32,6 +34,7 @@ public class Main extends GraphicsProgram {
       path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE,
           StandardWatchEventKinds.ENTRY_MODIFY);
       println("Expecting data in: " + path);
+      AnswerQueue = new ArrayList<Answer>();
       printIP();
     } catch (Exception e) {
     }
@@ -51,14 +54,18 @@ public class Main extends GraphicsProgram {
           if (DEBUG)
             System.out.println("Event:" + event.kind() + ". File affected: " + event.context() + ".");
           if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE)) {
-            TimeUnit.MILLISECONDS.wait(30);
             addAnswerToQueue((Path) event.context());
           }
         }
         key.reset();
+        if (stopScan)
+          break;
       }
     } catch (Exception e) {
+      e.printStackTrace();
     }
+    if (DEBUG)
+      println("exited scan mode!");
   }
 
   private void printIP() throws SocketException, UnknownHostException {
@@ -72,6 +79,12 @@ public class Main extends GraphicsProgram {
 
   void addAnswerToQueue(Path context) {
     try {
+      TimeUnit.MILLISECONDS.wait(30);
+    } catch (InterruptedException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    try {
       FileReader fr = new FileReader(context.toFile());
       BufferedReader bfr = new BufferedReader(fr);
       String name = bfr.readLine();
@@ -80,10 +93,20 @@ public class Main extends GraphicsProgram {
       while ((line = bfr.readLine()) != null) {
         message += line;
       }
-      AnswerQueue.add(new Answer(name, message));
+      if (name.equals("finia"))
+        adminIntervention(message);
+      else
+        AnswerQueue.add(new Answer(name, message));
+      bfr.close();
 
     } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
+
+  private void adminIntervention(String message) {
+    if (message.equals("stopScan"))
+      stopScan = true;
   }
 
 }
