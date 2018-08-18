@@ -68,4 +68,9 @@ class Answer {
     this.name = name;
   }
 
+  public String toString() {
+    return "'" + name + "' wrote: \n" + message;
+
+  }
+
 }

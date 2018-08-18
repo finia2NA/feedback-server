@@ -18,16 +18,16 @@ public class AddThread extends Thread {
 
   public void run() {
     try {
-      TimeUnit.MILLISECONDS.wait(30);
-    } catch (InterruptedException e) {
+      Thread.sleep(50);
+    } catch (InterruptedException e1) {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+      e1.printStackTrace();
     }
     try {
-      FileReader fr = new FileReader(path.toFile());
+      FileReader fr = new FileReader("O:\\Studium\\Kompetenz\\feedback-server\\Node\\data\\" + path.toString());
       BufferedReader bfr = new BufferedReader(fr);
       String name = bfr.readLine();
-      String message = "";
+      String message = bfr.readLine();
       String line;
       while ((line = bfr.readLine()) != null) {
         message += "\n" + line;
