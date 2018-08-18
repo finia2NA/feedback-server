@@ -7,15 +7,16 @@ import java.nio.file.WatchService;
 import java.util.ArrayList;
 
 public class WatchThread extends Thread {
-  private static final boolean DEBUG = false;
+  private boolean DEBUG = true;
   private Boolean stopScan;
   private Path path;
   ArrayList<Answer> AnswerQueue;
 
-  public void init(Path path, ArrayList<Answer> AnswerQueue, Boolean stopScan) {
+  public void init(Path path, ArrayList<Answer> AnswerQueue, Boolean stopScan, boolean DEBUG) {
     this.AnswerQueue = AnswerQueue;
     this.path = path;
     this.stopScan = stopScan;
+    this.DEBUG = DEBUG;
   }
 
   public void run() {
@@ -30,10 +31,10 @@ public class WatchThread extends Thread {
       WatchKey key;
       while ((key = watchService.take()) != null) {
         for (WatchEvent<?> event : key.pollEvents()) {
-          if (DEBUG)
-            System.out.println("Event:" + event.kind() + ". File affected: " + event.context() + ".");
+          if (DEBUG && event.kind() == StandardWatchEventKinds.ENTRY_CREATE)
+            System.out.println("File Creation recognized: " + event.context() + ".");
           if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE)) {
-            addAnswerToQueue((Path) event.context());
+            processAnswer((Path) event.context());
           }
         }
         key.reset();
@@ -47,9 +48,9 @@ public class WatchThread extends Thread {
       System.out.println("exited scan mode!");
   }
 
-  private void addAnswerToQueue(Path context) {
-    AddThread adder = new AddThread();
-    adder.init(AnswerQueue, context, stopScan);
+  private void processAnswer(Path context) {
+    ProcessThread adder = new ProcessThread();
+    adder.init(AnswerQueue, context, stopScan, DEBUG);
     adder.start();
   }
 }

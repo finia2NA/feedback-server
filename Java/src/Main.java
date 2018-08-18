@@ -35,7 +35,7 @@ public class Main extends GraphicsProgram {
 
   public void run() {
     WatchThread watcher = new WatchThread();
-    watcher.init(path, AnswerQueue, stopScan);
+    watcher.init(path, AnswerQueue, stopScan,DEBUG);
     watcher.start();
 
   }

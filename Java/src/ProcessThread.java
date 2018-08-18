@@ -4,16 +4,18 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class AddThread extends Thread {
+public class ProcessThread extends Thread {
   private Path path;
   @SuppressWarnings("unused")
   private Boolean stopScan;
   private ArrayList<Answer> AnswerQueue;
+  private boolean DEBUG;
 
-  public void init(ArrayList<Answer> AnswerQueue, Path path, Boolean stopScan) {
+  public void init(ArrayList<Answer> AnswerQueue, Path path, Boolean stopScan, boolean DEBUG) {
     this.path = path;
     this.AnswerQueue = AnswerQueue;
     this.stopScan = stopScan;
+    this.DEBUG = DEBUG;
   }
 
   public void run() {
