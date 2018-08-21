@@ -53,7 +53,7 @@ public class Main extends GraphicsProgram {
 
   private void processAnswer(int i) {
     // TODO Auto-generated method stub
-    
+
   }
 
   private void printIP() throws SocketException, UnknownHostException {
@@ -66,10 +66,6 @@ public class Main extends GraphicsProgram {
   }
 
   public void mouseClicked(MouseEvent e) {
-    if (phase == 0) {
-      watcher.stop();
-      phase++;
-    }
 
   }
 }
