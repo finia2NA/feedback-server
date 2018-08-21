@@ -1,4 +1,3 @@
-import java.awt.event.MouseEvent;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.StandardWatchEventKinds;

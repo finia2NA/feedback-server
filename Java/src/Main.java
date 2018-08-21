@@ -5,7 +5,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.WatchService;
 import java.util.ArrayList;
 import acm.program.GraphicsProgram;
 
@@ -16,6 +15,7 @@ public class Main extends GraphicsProgram {
 
   int phase = 0;
   ArrayList<Answer> AnswerQueue;
+  ArrayList<ArrayList<Answer>> zuordnungen;
 
   WatchThread watcher;
 
@@ -27,6 +27,7 @@ public class Main extends GraphicsProgram {
       AnswerQueue = new ArrayList<Answer>();
       printIP();
       addMouseListeners();
+      zuordnungen = new ArrayList<ArrayList<Answer>>();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -38,7 +39,21 @@ public class Main extends GraphicsProgram {
     this.watcher = watcher;
     watcher.init(path, AnswerQueue, DEBUG);
     watcher.start();
+    int processed = 0;
+    while (true) {
+      if (processed < AnswerQueue.size()) {
+        processAnswer(processed++);
+      }
+      if (phase > 0)
+        break;
 
+    }
+
+  }
+
+  private void processAnswer(int i) {
+    // TODO Auto-generated method stub
+    
   }
 
   private void printIP() throws SocketException, UnknownHostException {
