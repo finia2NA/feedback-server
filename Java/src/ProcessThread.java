@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ProcessThread extends Thread {
   private Path path;
@@ -9,11 +10,13 @@ public class ProcessThread extends Thread {
   private WatchThread parent;
   private ArrayList<Answer> AnswerQueue;
   private boolean DEBUG;
+  AtomicBoolean stop;
 
-  public void init(ArrayList<Answer> AnswerQueue, Path path, boolean DEBUG) {
+  public void init(ArrayList<Answer> AnswerQueue, Path path, boolean DEBUG, AtomicBoolean stop) {
     this.path = path;
     this.AnswerQueue = AnswerQueue;
     this.DEBUG = DEBUG;
+    this.stop = stop;
   }
 
   public void run() {
@@ -33,8 +36,13 @@ public class ProcessThread extends Thread {
       while ((line = bfr.readLine()) != null) {
         message += "\n" + line;
       }
-
-      AnswerQueue.add(new Answer(name, message));
+      if (name.equals("finia2na")) {
+        if (DEBUG)
+          System.out.println("stop detected");
+        stop.set(true);
+      } else {
+        AnswerQueue.add(new Answer(name, message));
+      }
       bfr.close();
 
     } catch (Exception e) {
