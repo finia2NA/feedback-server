@@ -5,18 +5,19 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WatchThread extends Thread {
   private boolean DEBUG = true;
   private Path path;
   ArrayList<Answer> AnswerQueue;
+  AtomicBoolean stop = new AtomicBoolean(false);
 
   /**
    * 
    * @param path
    * @param AnswerQueue
    * @param DEBUG
-   * @param stop
    */
   public void init(Path path, ArrayList<Answer> AnswerQueue, boolean DEBUG) {
     this.AnswerQueue = AnswerQueue;
@@ -34,7 +35,9 @@ public class WatchThread extends Thread {
           StandardWatchEventKinds.ENTRY_MODIFY);
 
       WatchKey key;
-      while ((key = watchService.take()) != null) {
+      // (key = watchService.take()) != null
+      while (!stop.get()) {
+        key = watchService.take();
         for (WatchEvent<?> event : key.pollEvents()) {
           if (DEBUG && event.kind() == StandardWatchEventKinds.ENTRY_CREATE)
             System.out.println("File Creation recognized: " + event.context() + ".");
@@ -51,12 +54,10 @@ public class WatchThread extends Thread {
     if (DEBUG)
       System.out.println("exited scan mode!");
   }
-  
-
 
   private void processAnswer(Path context) {
     ProcessThread adder = new ProcessThread();
-    adder.init(AnswerQueue, context, DEBUG);
+    adder.init(AnswerQueue, context, DEBUG, stop);
     adder.start();
   }
 }
