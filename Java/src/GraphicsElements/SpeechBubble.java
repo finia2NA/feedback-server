@@ -36,17 +36,17 @@ public class SpeechBubble extends GCompound {
   private void initGraphics() {
     GLabel nameLabel = new GLabel(name);
     nameLabel.setFont(FONT + "-*-" + NAMEFONTSIZE);
-    nameLabel.setLocation(0, nameLabel.getSize().getHeight());
+    nameLabel.setLocation(5, nameLabel.getSize().getHeight());
     GCompound messageCompound = generateMessageCompound(message);
     add(nameLabel);
+    messageCompound.setLocation(nameLabel.getX() + 5, nameLabel.getY() + 20);
     add(messageCompound);
-    // GRoundRect outline = generateOutline();
-    // add(outline);
-  }
-
-  private GRoundRect generateOutline() {
-    // TODO Auto-generated method stub
-    return null;
+    GRoundRect outline = new GRoundRect(this.getSize().getWidth()+10, this.getSize().getHeight());
+    outline.setLocation(nameLabel.getX()-5, nameLabel.getY() - nameLabel.getHeight()+10);
+    outline.setFilled(true);
+    outline.setColor(color);
+    add(outline);
+    outline.sendToBack();
   }
 
   private static GCompound generateMessageCompound(String message) {
@@ -60,6 +60,8 @@ public class SpeechBubble extends GCompound {
         return messageCompound;
       }
     }
+    // Words need to be seperated by spaces, else i'll get into problems.
+    message.replace("\n", " ");
     /*
      * if we're here the message is longer than 1 line. To have the best wordwrap,
      * we should break between words. So, we have to split the original String into
@@ -74,7 +76,7 @@ public class SpeechBubble extends GCompound {
     ArrayList<String> lines = getLines(words, spaceWidth);
 
     // TODO: Calculate actual value;
-    double messageOffset = 50.0;
+    double messageOffset = space.getSize().getHeight();
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
       GLabel lineLabel = new GLabel(line);
@@ -113,8 +115,8 @@ public class SpeechBubble extends GCompound {
         currentLineWidth = wordWidth;
       }
     }
-    // TODO: check if this is necessary:
-    // breaks.add(words.length);
+    // Let's not forget to add the last line.
+    breaks.add(words.length);
 
     // Generate the lines from the words and breakpoints.
     ArrayList<String> re = new ArrayList<String>();
