@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
@@ -8,6 +10,13 @@ public class SpeechBubble extends GCompound {
   String name;
   String message;
   Color color = Color.lightGray;
+  final static int NAMEFONTSIZE = 30;
+  final static int MESSAGEFONTSIZE = 20;
+  final static String FONT = "*";
+  // Entscheidet über Zeilenumbruch
+  final static double MAXWIDTH = 400;
+
+  final static boolean DEBUG = true;
 
   public SpeechBubble(String name, String message) {
     this.name = name;
@@ -24,25 +33,104 @@ public class SpeechBubble extends GCompound {
 
   private void initGraphics() {
     GLabel nameLabel = new GLabel(name);
-    nameLabel.setFont("*-*-30");
+    nameLabel.setFont(FONT + "-*-" + NAMEFONTSIZE);
     nameLabel.setLocation(0, nameLabel.getSize().getHeight());
-    GLabel messageLabel = new GLabel(message);
-    messageLabel.setFont("*-*-20");
-    messageLabel.setLocation(nameLabel.getX(), nameLabel.getY() + 20);
+    GCompound messageCompound = generateMessageCompound(message);
     add(nameLabel);
-    add(messageLabel);
-    GRoundRect outline = new GRoundRect(getSize().getWidth() + 0, getSize().getHeight());
-    outline.setLocation(this.getBounds().getLocation());
-    outline.move(-5, 0);
-    outline.setFilled(true);
-    outline.setFillColor(color);
-    add(outline);
-    outline.sendToBack();
+    add(messageCompound);
+    // GRoundRect outline = generateOutline();
+    // add(outline);
+  }
+
+  private GRoundRect generateOutline() {
+    // TODO Auto-generated method stub
+    return null;
   }
 
   private static GCompound generateMessageCompound(String message) {
     GCompound messageCompound = new GCompound();
+    // if the message itself was below MAXWIDTH we can just return a compound with a
+    // single GLabel containing the message.
+    {
+      GLabel firstAttempt = new GLabel(message);
+      if (firstAttempt.getSize().getWidth() <= MAXWIDTH) {
+        messageCompound.add(firstAttempt);
+        return messageCompound;
+      }
+    }
+    /*
+     * if we're here the message is longer than 1 line. To have the best wordwrap,
+     * we should break between words. So, we have to split the original String into
+     * words first. The best way to do that is with a RegEx stolen from
+     * StackOverflow.
+     */
+    String[] words = message.split("\\s+");
+    // Now we can generate the lines so that they will be narrower than MAXWIDTH.
+    GLabel space = new GLabel(" ");
+    space.setFont(FONT + "-*-" + MESSAGEFONTSIZE);
+    double spaceWidth = space.getSize().getWidth();
+    ArrayList<String> lines = getLines(words, spaceWidth);
+
+    // TODO: Calculate actual value;
+    double messageOffset = 50.0;
+    for (int i = 0; i < lines.size(); i++) {
+      String line = lines.get(i);
+      GLabel lineLabel = new GLabel(line);
+      lineLabel.setFont(FONT + "-*-" + MESSAGEFONTSIZE);
+      lineLabel.move(0, i * messageOffset);
+      messageCompound.add(lineLabel);
+    }
+
     return messageCompound;
   }
 
+  /**
+   *
+   * @param words
+   * @param spaceWidth
+   * @return Lines so that every line is <MAXWIDTH or {@code null} if that is not
+   *         possible (if one single word is >Maxwidth)
+   */
+  public static ArrayList<String> getLines(String[] words, double spaceWidth) {
+    ArrayList<Integer> breaks = new ArrayList<Integer>();
+
+    double currentLineWidth = 0;
+    for (int i = 0; i < words.length; i++) {
+      String word = words[i];
+      GLabel wordLabel = new GLabel(word);
+      wordLabel.setFont(FONT + "-*-" + MESSAGEFONTSIZE);
+      double wordWidth = wordLabel.getSize().getWidth();
+      if (wordWidth > MAXWIDTH && DEBUG) {
+        System.err.println("warning: single word longer than MAXWIDTH: will fuck shit up");
+      }
+      if (currentLineWidth + spaceWidth + wordWidth <= MAXWIDTH) {
+        // in this case the new word fits
+        currentLineWidth += spaceWidth + wordWidth;
+      } else {
+        // in this case we need to add a break at this word.
+        breaks.add(i);
+        currentLineWidth = wordWidth;
+      }
+    }
+    // TODO: check if this is necessary
+    // breaks.add(words.length);
+
+    // Generate the lines from the words and breakpoints.
+    ArrayList<String> re = new ArrayList<String>();
+    int lastBreak = 0;
+    for (int i = 0; i < breaks.size(); i++) {
+      int currentBreak = breaks.get(i);
+      String[] sub = Arrays.copyOfRange(words, lastBreak, currentBreak);
+      String atm = "";
+
+      for (String word : sub) {
+        atm += word + " ";
+      }
+      atm = atm.trim();
+      re.add(atm);
+
+      lastBreak = currentBreak;
+    }
+    return re;
+  }
 }
