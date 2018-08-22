@@ -1,5 +1,5 @@
 package Tests;
-import GraphicsElements.SpeechBubble;
+import View.SpeechBubble;
 import acm.program.GraphicsProgram;
 
 public class GraphicsTester extends GraphicsProgram {

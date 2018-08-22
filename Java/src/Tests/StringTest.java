@@ -2,7 +2,7 @@ package Tests;
 
 import java.util.ArrayList;
 
-import GraphicsElements.SpeechBubble;
+import View.SpeechBubble;
 import acm.graphics.GLabel;
 
 public class StringTest {
