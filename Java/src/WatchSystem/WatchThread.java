@@ -1,3 +1,4 @@
+package WatchSystem;
 
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -7,6 +8,8 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import Main.Answer;
 
 public class WatchThread extends Thread {
   private boolean DEBUG = true;

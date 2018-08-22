@@ -1,4 +1,7 @@
+package Tests;
 import java.util.ArrayList;
+
+import Main.Answer;
 
 public class DataSet1 {
   /**

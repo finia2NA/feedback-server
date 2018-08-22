@@ -1,9 +1,12 @@
+package WatchSystem;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import Main.Answer;
 
 public class ProcessThread extends Thread {
   private Path path;

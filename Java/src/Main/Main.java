@@ -1,3 +1,4 @@
+package Main;
 import java.awt.event.MouseEvent;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -6,6 +7,8 @@ import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import WatchSystem.WatchThread;
 import acm.program.GraphicsProgram;
 
 @SuppressWarnings("serial")

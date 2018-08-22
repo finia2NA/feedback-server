@@ -1,5 +1,8 @@
+package Tests;
+
 import java.util.ArrayList;
 
+import GraphicsElements.SpeechBubble;
 import acm.graphics.GLabel;
 
 public class StringTest {

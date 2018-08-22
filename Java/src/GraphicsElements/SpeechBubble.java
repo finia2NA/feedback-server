@@ -1,3 +1,5 @@
+package GraphicsElements;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,14 +8,13 @@ import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GRoundRect;
 
-@SuppressWarnings("serial")
 public class SpeechBubble extends GCompound {
   String name;
   String message;
   Color color = Color.lightGray;
   final static int NAMEFONTSIZE = 30;
-  final static int MESSAGEFONTSIZE = 20;
-  final static String FONT = "*";
+  public final static int MESSAGEFONTSIZE = 20;
+  public final static String FONT = "*";
   // Entscheidet über Zeilenumbruch
   final static double MAXWIDTH = 400;
 
