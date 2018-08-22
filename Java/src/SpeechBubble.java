@@ -6,6 +6,7 @@ import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GRoundRect;
 
+@SuppressWarnings("serial")
 public class SpeechBubble extends GCompound {
   String name;
   String message;
@@ -88,8 +89,7 @@ public class SpeechBubble extends GCompound {
    *
    * @param words
    * @param spaceWidth
-   * @return Lines so that every line is <MAXWIDTH or {@code null} if that is not
-   *         possible (if one single word is >Maxwidth)
+   * @return Lines so that every line is <MAXWIDTH.
    */
   public static ArrayList<String> getLines(String[] words, double spaceWidth) {
     ArrayList<Integer> breaks = new ArrayList<Integer>();
@@ -104,15 +104,15 @@ public class SpeechBubble extends GCompound {
         System.err.println("warning: single word longer than MAXWIDTH: will fuck shit up");
       }
       if (currentLineWidth + spaceWidth + wordWidth <= MAXWIDTH) {
-        // in this case the new word fits
+        // in this case the new word fits into our current line
         currentLineWidth += spaceWidth + wordWidth;
       } else {
-        // in this case we need to add a break at this word.
+        // in this case we need to add a break at this word and start a new line.
         breaks.add(i);
         currentLineWidth = wordWidth;
       }
     }
-    // TODO: check if this is necessary
+    // TODO: check if this is necessary:
     // breaks.add(words.length);
 
     // Generate the lines from the words and breakpoints.
