@@ -72,10 +72,12 @@ public class MainView {
 
   public void mouseClicked(MouseEvent e) {
     if (focus == null) {
-      SpeechBubble activeSP = activePanel.getSPat(e);
+      SpeechBubble activeSP = activePanel.getSBat(e.getX(), e.getY());
+      if(activeSP==null)
+        return;
       activePanel.setVisible(false);
       focus = new ListPanel();
-      focus.add(new SpeechBubble(activeSP.name, activeSP.message));
+      focus.add(new Answer(activeSP.name, activeSP.message));
       top.add(focus);
     } else {
       top.remove(focus);
