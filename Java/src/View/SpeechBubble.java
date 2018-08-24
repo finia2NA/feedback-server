@@ -8,6 +8,8 @@ import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GRoundRect;
 
+//TODO: Iwie funktioniert die MESSAGEFONTSIZE nicht. investigate.
+@SuppressWarnings("serial")
 public class SpeechBubble extends GCompound {
   String name;
   String message;
@@ -41,8 +43,8 @@ public class SpeechBubble extends GCompound {
     add(nameLabel);
     messageCompound.setLocation(nameLabel.getX() + 5, nameLabel.getY() + 20);
     add(messageCompound);
-    GRoundRect outline = new GRoundRect(this.getSize().getWidth()+10, this.getSize().getHeight());
-    outline.setLocation(nameLabel.getX()-5, nameLabel.getY() - nameLabel.getHeight()+10);
+    GRoundRect outline = new GRoundRect(this.getSize().getWidth() + 10, this.getSize().getHeight());
+    outline.setLocation(nameLabel.getX() - 5, nameLabel.getY() - nameLabel.getHeight() + 10);
     outline.setFilled(true);
     outline.setColor(color);
     add(outline);

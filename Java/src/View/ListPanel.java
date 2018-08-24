@@ -1,19 +1,16 @@
 package View;
 
-import java.util.ArrayList;
-
 import Main.Answer;
-import acm.graphics.GCompound;
+import acm.graphics.GPoint;
 
 /**
  * A class to display SpeechBubbles in a scrollable list.
  *
  */
 @SuppressWarnings("serial")
-public class ListPanel extends GCompound {
-  GCompound content = new GCompound();
-  ArrayList<SpeechBubble> SpeechBubbles = new ArrayList<SpeechBubble>();
+public class ListPanel extends Panel {
   private final static double DISTANCE_BETWEEN_SBS = 10;
+  private final static GPoint base = new GPoint(10, 0);
 
   public ListPanel() {
     super();
@@ -26,7 +23,7 @@ public class ListPanel extends GCompound {
   }
 
   public void resetScroll() {
-    content.setLocation(0, 0);
+    content.setLocation(base);
   }
 
   public void add(Answer answer) {

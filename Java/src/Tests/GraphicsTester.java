@@ -2,6 +2,7 @@ package Tests;
 import View.SpeechBubble;
 import acm.program.GraphicsProgram;
 
+@SuppressWarnings("serial")
 public class GraphicsTester extends GraphicsProgram {
   public void run() {
     SpeechBubble sb = new SpeechBubble("finite", "hi there das hier ist ein test. er kann beliebig lang sein,"
