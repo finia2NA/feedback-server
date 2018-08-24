@@ -57,6 +57,7 @@ public class SpeechBubble extends GCompound {
     // single GLabel containing the message.
     {
       GLabel firstAttempt = new GLabel(message);
+      firstAttempt.setFont(FONT + "-*-" + MESSAGEFONTSIZE);
       if (firstAttempt.getSize().getWidth() <= MAXWIDTH) {
         messageCompound.add(firstAttempt);
         return messageCompound;
