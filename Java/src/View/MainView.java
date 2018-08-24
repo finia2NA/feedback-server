@@ -39,6 +39,13 @@ public class MainView {
 
   public void add(Answer a) {
     int[] toAdds = a.getZuordnungen();
+    if (toAdds == null || toAdds.length == 0) {
+      System.err.println("Please init ZUORDNUNGEN b4 adding to MainView");
+      return;
+    }
+    ListPanels[0].add(a);
+    if (useCPs)
+      CanvasPanels[0].add(a);
     for (int i : toAdds) {
       ListPanels[i].add(a);
       if (useCPs)
