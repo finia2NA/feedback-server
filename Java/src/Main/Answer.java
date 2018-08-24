@@ -3,7 +3,11 @@ package Main;
 public class Answer {
   public String name;
   public String message;
-  public int[] zuordnungen;
+  private int[] zuordnungen;
+
+  /**
+   * @return the zuordnungen
+   */
 
   public Answer(String name, String message) {
     this.name = name;
@@ -31,5 +35,9 @@ public class Answer {
 
   public void setZuordnung(int... zuordnungen) {
     this.zuordnungen = zuordnungen;
+  }
+
+  public int[] getZuordnungen() {
+    return zuordnungen;
   }
 }
