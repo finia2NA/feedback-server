@@ -16,10 +16,6 @@ public abstract class Panel extends GCompound {
 
   public SpeechBubble getSBat(double x, double y) {
     GObject clicked = getElementAt(x, y);
-    GCompound compound = null;
-    if (clicked instanceof GCompound) {
-      compound = (GCompound) clicked;
-    }
 
     while (clicked instanceof GCompound && !(clicked instanceof SpeechBubble)) {
       x -= clicked.getX();

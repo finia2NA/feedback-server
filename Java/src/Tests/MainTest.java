@@ -19,14 +19,14 @@ public class MainTest extends GraphicsProgram {
     Answer a = new Answer("Marcel Davis", "Hallo, Mein Name ist Marcel Davis vong 1&1");
     a.setZuordnung(1, 3);
     mv.add(a);
-    Answer b = new Answer("Dieter Dietrich", "HALLÖCHEM MOTHERFUCKER");
+    Answer b = new Answer("Dieter Dietrich", "HALLÖCHEN MOTHERFUCKER");
     b.setZuordnung(2, 3);
     mv.add(b);
     mv.showPanel(false, 2);
     mv.showPanel(false, 3);
     mv.showPanel(false, 0);
   }
-  
+
   @Override
   public void mouseClicked(MouseEvent e) {
     mv.mouseClicked(e);
