@@ -17,22 +17,7 @@ public class StringTest {
     space.setFont(SpeechBubble.FONT + "-*-" + SpeechBubble.MESSAGEFONTSIZE);
     double spaceWidth = space.getSize().getWidth();
     ArrayList<String> re = SpeechBubble.getLines(words, spaceWidth);
-    int vier = 5;
-
-  }
-
-  private static void test2() {
-    String satz = "Fischers Fritz fischt frische Fische";
-    String[] words = satz.split("\\s+");
-    GLabel a = new GLabel(satz);
-    double length1 = a.getSize().getWidth();
-    System.out.println(length1);
-    double length2 = 0.0;
-    for (String word : words) {
-      GLabel wordLabel = new GLabel(word);
-      length2 += wordLabel.getSize().getWidth();
-    }
-    length2 += (words.length - 1) * (new GLabel(" ").getSize().getWidth());
-    System.out.println(length2);
+    for(String s : re)
+      System.out.println(s);
   }
 }
