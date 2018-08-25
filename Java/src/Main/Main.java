@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import View.MainView;
 import WatchSystem.WatchThread;
@@ -15,28 +16,28 @@ import acm.program.GraphicsProgram;
 
 @SuppressWarnings("serial")
 public class Main extends GraphicsProgram {
-  final static boolean DEBUG = true;
+  final static boolean DEBUG = false;
   final static Path path = Paths.get("O:\\Studium\\Kompetenz\\feedback-server\\Node\\data");
   int howManyCategories = 5;
 
   int phase = 0;
-  ArrayList<Answer> AnswerList;
+  CopyOnWriteArrayList<Answer> AnswerList;
 
   MainView view;
   WatchThread watcher;
 
   public void init() {
-    AnswerList = new ArrayList<Answer>();
+    AnswerList = new CopyOnWriteArrayList<Answer>();
+    ;
     try {
       println("Expecting data in: " + path);
 
-      AnswerList = new ArrayList<Answer>();
       printIP();
       addMouseListeners();
     } catch (Exception e) {
       e.printStackTrace();
     }
-    view = new MainView(this, howManyCategories);
+    view = new MainView(this, howManyCategories, false);
     // readLine("Press Enter to start");
   }
 

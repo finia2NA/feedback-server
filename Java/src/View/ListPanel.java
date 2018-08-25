@@ -18,6 +18,13 @@ public class ListPanel extends Panel {
     add(content);
   }
 
+  public ListPanel(boolean DEBUG) {
+    super();
+    this.DEBUG = DEBUG;
+    content.move(10, 0);
+    add(content);
+  }
+
   public void scroll(double howMuch) {
     content.move(0, howMuch);
   }
