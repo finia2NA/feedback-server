@@ -3,7 +3,6 @@ package WatchSystem;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 

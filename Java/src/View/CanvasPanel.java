@@ -12,6 +12,13 @@ public class CanvasPanel extends Panel {
     add(content);
   }
 
+  public CanvasPanel(boolean DEBUG) {
+    super();
+    content.move(10, 0);
+    add(content);
+    this.DEBUG = DEBUG;
+  }
+
   @Override
   public void add(Answer answer) {
     // TODO Auto-generated method stub

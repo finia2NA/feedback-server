@@ -10,7 +10,8 @@ import acm.graphics.GObject;
 public abstract class Panel extends GCompound {
   GCompound content = new GCompound();
   ArrayList<SpeechBubble> SpeechBubbles = new ArrayList<SpeechBubble>();
-  final static boolean abstractDEBUG = false;
+  boolean abstractDEBUG = false;
+  boolean DEBUG = false;
 
   public abstract void add(Answer answer);
 
