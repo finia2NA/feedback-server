@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import Main.Answer;
@@ -12,13 +13,13 @@ public class ProcessThread extends Thread {
   private Path path;
   @SuppressWarnings("unused")
   private WatchThread parent;
-  private ArrayList<Answer> AnswerQueue;
+  CopyOnWriteArrayList<Answer> AnswerList;
   private boolean DEBUG;
   AtomicBoolean stop;
 
-  public void init(ArrayList<Answer> AnswerQueue, Path path, boolean DEBUG, AtomicBoolean stop) {
+  public void init(CopyOnWriteArrayList<Answer> AnswerList, Path path, boolean DEBUG, AtomicBoolean stop) {
     this.path = path;
-    this.AnswerQueue = AnswerQueue;
+    this.AnswerList = AnswerList;
     this.DEBUG = DEBUG;
     this.stop = stop;
   }
@@ -45,7 +46,7 @@ public class ProcessThread extends Thread {
           System.out.println("stop detected");
         stop.set(true);
       } else {
-        AnswerQueue.add(new Answer(name, message));
+        AnswerList.add(new Answer(name, message));
       }
       bfr.close();
 

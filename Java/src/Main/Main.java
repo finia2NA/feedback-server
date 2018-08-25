@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import View.MainView;
 import WatchSystem.WatchThread;
@@ -20,17 +21,16 @@ public class Main extends GraphicsProgram {
   int howManyCategories = 5;
 
   int phase = 0;
-  ArrayList<Answer> AnswerList;
+  CopyOnWriteArrayList<Answer> AnswerList;
 
   MainView view;
   WatchThread watcher;
 
   public void init() {
-    AnswerList = new ArrayList<Answer>();
+    AnswerList = new CopyOnWriteArrayList<Answer>();;
     try {
       println("Expecting data in: " + path);
 
-      AnswerList = new ArrayList<Answer>();
       printIP();
       addMouseListeners();
     } catch (Exception e) {

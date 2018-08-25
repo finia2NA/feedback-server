@@ -7,6 +7,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import Main.Answer;
@@ -14,7 +15,7 @@ import Main.Answer;
 public class WatchThread extends Thread {
   private boolean DEBUG = true;
   private Path path;
-  ArrayList<Answer> AnswerQueue;
+  CopyOnWriteArrayList<Answer> AnswerList;
   AtomicBoolean stop = new AtomicBoolean(false);
 
   /**
@@ -23,8 +24,8 @@ public class WatchThread extends Thread {
    * @param AnswerQueue
    * @param DEBUG
    */
-  public void init(Path path, ArrayList<Answer> AnswerQueue, boolean DEBUG) {
-    this.AnswerQueue = AnswerQueue;
+  public void init(Path path, CopyOnWriteArrayList<Answer> AnswerList, boolean DEBUG) {
+    this.AnswerList = AnswerList;
     this.path = path;
     this.DEBUG = DEBUG;
   }
@@ -61,7 +62,7 @@ public class WatchThread extends Thread {
 
   private void processAnswer(Path context) {
     ProcessThread adder = new ProcessThread();
-    adder.init(AnswerQueue, context, DEBUG, stop);
+    adder.init(AnswerList, context, DEBUG, stop);
     adder.start();
   }
 }
