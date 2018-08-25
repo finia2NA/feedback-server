@@ -1,4 +1,5 @@
 package Main;
+
 import java.awt.event.MouseEvent;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -8,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import View.MainView;
 import WatchSystem.WatchThread;
 import acm.program.GraphicsProgram;
 
@@ -15,48 +17,66 @@ import acm.program.GraphicsProgram;
 public class Main extends GraphicsProgram {
   final static boolean DEBUG = true;
   final static Path path = Paths.get("O:\\Studium\\Kompetenz\\feedback-server\\Node\\data");
+  int howManyCategories = 5;
 
   int phase = 0;
-  ArrayList<Answer> AnswerQueue;
-  ArrayList<ArrayList<Answer>> zuordnungen;
+  ArrayList<Answer> AnswerList;
 
+  MainView view;
   WatchThread watcher;
 
   public void init() {
-    AnswerQueue = new ArrayList<Answer>();
+    AnswerList = new ArrayList<Answer>();
     try {
       println("Expecting data in: " + path);
 
-      AnswerQueue = new ArrayList<Answer>();
+      AnswerList = new ArrayList<Answer>();
       printIP();
       addMouseListeners();
-      zuordnungen = new ArrayList<ArrayList<Answer>>();
     } catch (Exception e) {
       e.printStackTrace();
     }
+    view = new MainView(this, howManyCategories);
     // readLine("Press Enter to start");
   }
 
   public void run() {
     WatchThread watcher = new WatchThread();
     this.watcher = watcher;
-    watcher.init(path, AnswerQueue, DEBUG);
+    watcher.init(path, AnswerList, DEBUG);
     watcher.start();
     int processed = 0;
     while (true) {
-      if (processed < AnswerQueue.size()) {
-        processAnswer(processed++);
+      if (processed < AnswerList.size()) {
+        processAnswer(processed);
+        processed++;
       }
       if (phase > 0)
         break;
-
     }
 
   }
 
-  private void processAnswer(int i) {
-    // TODO Auto-generated method stub
+  private void processAnswer(int numAnswer) {
+    String s = readLine(AnswerList.get(numAnswer).toString());
+    String[] split = s.split("\\s+");
+    ArrayList<Integer> zuordnungen = new ArrayList<Integer>();
+    for (int i = 0; i < split.length; i++) {
+      int zahl = Integer.parseInt(split[i]);
+      if (zahl > howManyCategories) {
+        System.err.println("please don't give me any numbers over howManyCategories.");
+      } else {
+        zuordnungen.add(zahl);
+      }
+    }
+    // convert to array
+    int[] atm = new int[zuordnungen.size()];
+    for (int i = 0; i < atm.length; i++) {
+      atm[i] = zuordnungen.get(i);
+    }
 
+    AnswerList.get(numAnswer).setZuordnung(atm);
+    view.add(AnswerList.get(numAnswer));
   }
 
   private void printIP() throws SocketException, UnknownHostException {

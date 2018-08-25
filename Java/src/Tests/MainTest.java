@@ -1,5 +1,6 @@
 package Tests;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import Main.Answer;
@@ -30,5 +31,10 @@ public class MainTest extends GraphicsProgram {
   @Override
   public void mouseClicked(MouseEvent e) {
     mv.mouseClicked(e);
+  }
+  
+  @Override
+  public void keyTyped(KeyEvent e) {
+    
   }
 }
