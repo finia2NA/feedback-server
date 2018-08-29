@@ -1,0 +1,11 @@
+# @newAnswer starts new Answer
+# @separator seperates name and message; message and zuordnung
+# 1->Soziale Intelligenz 2->Emotionale Intelligenz 3->Soziale Fertigkeiten 4->Interpersonale Kompetenz
+@newAnswer Informatikmensch #0 @separator angemessener umgang mit menschen @separator @separator 1 4
+@newAnswer Informatikmensch #1 @separator Empathiefähigkeit @separator 2
+@newAnswer Informatikmensch #2 @separator Emotionale Stabilität bzw stufe "der Kontrolle" beim interagieren mit den Mitmenschen. Fällt in den Umgang mit den Mitmwnschen mit rein @separator 2
+@newAnswer Informatikmensch #3 @separator Kritikfähigkeit @separator 2
+@newAnswer Informatikmensch #4 @separator Toleranz, Hilfsbereitschaft, Selbstbewusstsein, Menschenkenntnis, Kompromissbereitschaft, Einsicht. Sind vielleicht eher "Randeigenschaften" 🤷‍♂ @separator 1 2
+@newAnswer Informatikmensch #5 @separator Die Fähigkeit, mit anderen Leuten  saufen zu können. @separator 4
+@newAnswer Informatikmensch #6 @separator Kommunikation? @separator 3 4
+@newAnswer Informatikmensch #7 @separator Ich denke ein sozial kompetenter Mensch ist dazu in der Lage sich in andere Menschen hinein zu versetzen und über sein eigenes verlangen hinnaus zu denken :) @separator 2
