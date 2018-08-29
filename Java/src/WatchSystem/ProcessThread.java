@@ -24,8 +24,8 @@ public class ProcessThread extends Thread {
   }
 
   public void run() {
-    // if (DEBUG)
-    System.out.println("ProcessThread started");
+    if (DEBUG)
+      System.out.println("ProcessThread started");
     try {
       Thread.sleep(50);
     } catch (InterruptedException e1) {
