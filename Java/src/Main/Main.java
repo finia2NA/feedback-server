@@ -63,6 +63,7 @@ public class Main extends GraphicsProgram {
     String[] split = s.split("\\s+");
     ArrayList<Integer> zuordnungen = new ArrayList<Integer>();
     for (int i = 0; i < split.length; i++) {
+      //TODO: deal with the case that the user inputs something that is not an int
       int zahl = Integer.parseInt(split[i]);
       if (zahl > howManyCategories) {
         System.err.println("please don't give me any numbers over howManyCategories.");

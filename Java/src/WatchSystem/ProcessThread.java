@@ -15,6 +15,10 @@ public class ProcessThread extends Thread {
   CopyOnWriteArrayList<Answer> AnswerList;
   private boolean DEBUG;
   AtomicBoolean stop;
+  // TODO: maybe move these up to main?
+  final static String DATALOCATION = "O:\\Studium\\Kompetenz\\feedback-server\\Node\\data\\";
+  // TODO: fill
+  final static String BACKUPLOCATION = "";
 
   public void init(CopyOnWriteArrayList<Answer> AnswerList, Path path, boolean DEBUG, AtomicBoolean stop) {
     this.path = path;
@@ -23,6 +27,8 @@ public class ProcessThread extends Thread {
     this.stop = stop;
   }
 
+  // TODO backup with zuordnung
+  // synchronized to prevent simultanious access to backup file
   public void run() {
     if (DEBUG)
       System.out.println("ProcessThread started");
@@ -32,7 +38,7 @@ public class ProcessThread extends Thread {
       e1.printStackTrace();
     }
     try {
-      FileReader fr = new FileReader("O:\\Studium\\Kompetenz\\feedback-server\\Node\\data\\" + path.toString());
+      FileReader fr = new FileReader(DATALOCATION + path.toString());
       BufferedReader bfr = new BufferedReader(fr);
       String name = bfr.readLine();
       String message = bfr.readLine();
@@ -45,7 +51,9 @@ public class ProcessThread extends Thread {
           System.out.println("stop detected");
         stop.set(true);
       } else {
-        AnswerList.add(new Answer(name, message));
+        Answer a = new Answer(name, message);
+        write(a);
+        AnswerList.add(a);
       }
       bfr.close();
 
@@ -54,4 +62,8 @@ public class ProcessThread extends Thread {
     }
   }
 
+  private synchronized void write(Answer answer) {
+    String toAdd = "@newAnswer" + answer.name + "@separator" + answer.message + "@seperator";
+    //TODO add the part where it actually writes
+  }
 }

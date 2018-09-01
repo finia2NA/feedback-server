@@ -57,6 +57,7 @@ public class WatchThread extends Thread {
     }
     if (DEBUG)
       System.out.println("exited scan mode!");
+    System.out.println("exited scan mode!");
   }
 
   private void processAnswer(Path context) {

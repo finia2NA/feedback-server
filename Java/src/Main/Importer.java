@@ -49,6 +49,7 @@ public class Importer {
         String name = areas[0];
         String message = areas[1];
         Answer answer = new Answer(name, message);
+        //TODO make shure this works with an empty zuordnungen area.
         String[] zuString = areas[2].split("\\s+");
         int[] zuordnungen = new int[zuString.length];
         for (int j = 0; j < zuString.length; j++) {
