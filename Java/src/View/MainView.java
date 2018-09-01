@@ -81,6 +81,7 @@ public class MainView {
         cp.setVisible(false);
 
     (canvas ? CanvasPanels[panel] : ListPanels[panel]).setVisible(true);
+    activePanel = canvas ? CanvasPanels[panel] : ListPanels[panel];
   }
 
   public void mouseDragged(MouseEvent e) {

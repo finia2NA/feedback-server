@@ -92,7 +92,7 @@ public class Main extends GraphicsProgram {
   }
 
   public void mouseClicked(MouseEvent e) {
-    //TODO IMPLEMENT!
+    view.mouseClicked(e);
   }
   
   public void actionPerformed(ActionEvent e) {
