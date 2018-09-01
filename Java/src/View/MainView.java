@@ -1,6 +1,9 @@
 package View;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
 
 import Main.Answer;
 import acm.program.GraphicsProgram;
@@ -32,6 +35,8 @@ public class MainView {
       ListPanels[i] = new ListPanel(DEBUG);
       top.add(ListPanels[i]);
       ListPanels[i].setVisible(false);
+      top.add(new JButton("lp" + i), top.EAST);
+      top.addActionListeners();
     }
     if (useCPs) {
       CanvasPanels = new CanvasPanel[numberOfAreas + 1];
@@ -39,6 +44,7 @@ public class MainView {
         CanvasPanels[i] = new CanvasPanel(DEBUG);
         top.add(CanvasPanels[i]);
         CanvasPanels[i].setVisible(false);
+        // TODO do the CP buttons
       }
     }
 
@@ -96,6 +102,15 @@ public class MainView {
       focus = null;
       activePanel.setVisible(true);
     }
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    String label = e.getActionCommand();
+    boolean isCP = false;
+    if (label.contains("cp"))
+      isCP = true;
+    int identifier = Integer.parseInt(label.substring(2, label.length()));
+    showPanel(isCP, identifier);
   }
 
 }

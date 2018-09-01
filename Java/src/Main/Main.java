@@ -1,5 +1,6 @@
 package Main;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -18,7 +19,7 @@ import acm.program.GraphicsProgram;
 public class Main extends GraphicsProgram {
   final static boolean DEBUG = false;
   final static Path path = Paths.get("O:\\Studium\\Kompetenz\\feedback-server\\Node\\data");
-  int howManyCategories = 5;
+  final static int howManyCategories = 5;
 
   int phase = 0;
   CopyOnWriteArrayList<Answer> AnswerList;
@@ -91,6 +92,10 @@ public class Main extends GraphicsProgram {
   }
 
   public void mouseClicked(MouseEvent e) {
-
+    //TODO IMPLEMENT!
   }
+  
+  public void actionPerformed(ActionEvent e) {
+    view.actionPerformed(e);
+ }
 }
