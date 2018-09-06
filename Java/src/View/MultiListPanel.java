@@ -11,7 +11,8 @@ public class MultiListPanel extends ScrollingPanel {
     lps = new ListPanel[howMany];
     for (int i = 0; i < lps.length; i++) {
       lps[i] = new ListPanel();
-      lps[i].move(0, i * SpeechBubble.MAXWIDTH);
+      lps[i].move(i * SpeechBubble.MAXWIDTH, 0);
+      add(lps[i]);
     }
   }
 

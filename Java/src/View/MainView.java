@@ -11,7 +11,7 @@ import acm.program.Program;
 
 public class MainView {
   GraphicsProgram top;
-  ListPanel[] ListPanels;
+  ScrollingPanel[] SPs;
   boolean MLPs = false;
   boolean DEBUG = false;
   private ScrollingPanel activePanel;
@@ -41,17 +41,28 @@ public class MainView {
   private void commonCore(GraphicsProgram top, int numberOfAreas) {
     this.top = top;
 
-    // +1 weil die liste 0 alle antworten zeigt.
-    ListPanels = new ListPanel[numberOfAreas + 1];
-    for (int i = 0; i < numberOfAreas + 1; i++) {
-      ListPanels[i] = new ListPanel(DEBUG);
-      top.add(ListPanels[i]);
-      ListPanels[i].setVisible(false);
-      top.add(new JButton("" + i), Program.EAST);
+    if (MLPs) {
+   // +1 weil die liste 0 alle antworten zeigt.
+      SPs = new MultiListPanel[numberOfAreas + 1];
+      for (int i = 0; i < numberOfAreas + 1; i++) {
+        SPs[i] = new MultiListPanel(nMultiListpanels);
+        top.add(SPs[i]);
+        SPs[i].setVisible(false);
+        top.add(new JButton("" + i), Program.EAST);
+      }
+    } else {
+      // +1 weil die liste 0 alle antworten zeigt.
+      SPs = new ListPanel[numberOfAreas + 1];
+      for (int i = 0; i < numberOfAreas + 1; i++) {
+        SPs[i] = new ListPanel(DEBUG);
+        top.add(SPs[i]);
+        SPs[i].setVisible(false);
+        top.add(new JButton("" + i), Program.EAST);
+      }
     }
 
-    ListPanels[0].setVisible(true);
-    activePanel = ListPanels[0];
+    SPs[0].setVisible(true);
+    activePanel = SPs[0];
   }
 
   public void add(Answer a) {
@@ -63,21 +74,20 @@ public class MainView {
     if (toAdds.length == 0)
       return;
 
-    ListPanels[0].add(a);
+    SPs[0].add(a);
 
     for (int i : toAdds) {
-      ListPanels[i].add(a);
-
+      SPs[i].add(a);
     }
   }
 
   public void showPanel(int panel) {
-    assert panel <= ListPanels.length;
-    for (ListPanel lp : ListPanels)
+    assert panel <= SPs.length;
+    for (ScrollingPanel lp : SPs)
       lp.setVisible(false);
 
-    ListPanels[panel].setVisible(true);
-    activePanel = ListPanels[panel];
+    SPs[panel].setVisible(true);
+    activePanel = SPs[panel];
   }
 
   public void mouseClicked(MouseEvent e) {

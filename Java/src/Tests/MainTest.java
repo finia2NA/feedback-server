@@ -13,7 +13,7 @@ public class MainTest extends GraphicsProgram {
   MainView mv;
 
   public void init() {
-    mv = new MainView(this, 3);
+    mv = new MainView(this, true, 3);
     addMouseListeners();
     addActionListeners();
   }
@@ -39,6 +39,7 @@ public class MainTest extends GraphicsProgram {
   public void keyTyped(KeyEvent e) {
 
   }
+
   @Override
   public void actionPerformed(ActionEvent e) {
     mv.actionPerformed(e);
