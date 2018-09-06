@@ -11,10 +11,9 @@ import acm.program.GraphicsProgram;
 public class MainView {
   GraphicsProgram top;
   ListPanel[] ListPanels;
-  CanvasPanel[] CanvasPanels;
-  final static boolean useCPs = false;
+  final static boolean DLP = false;
   boolean DEBUG = false;
-  private Panel activePanel;
+  private ScrollingPanel activePanel;
   private ListPanel focus = null;
 
   public MainView(GraphicsProgram top, int numberOfAreas) {
@@ -35,17 +34,8 @@ public class MainView {
       ListPanels[i] = new ListPanel(DEBUG);
       top.add(ListPanels[i]);
       ListPanels[i].setVisible(false);
-      top.add(new JButton("lp" + i), top.EAST);
+      top.add(new JButton(""+i), top.EAST);
       top.addActionListeners();
-    }
-    if (useCPs) {
-      CanvasPanels = new CanvasPanel[numberOfAreas + 1];
-      for (int i = 0; i < numberOfAreas + 1; i++) {
-        CanvasPanels[i] = new CanvasPanel(DEBUG);
-        top.add(CanvasPanels[i]);
-        CanvasPanels[i].setVisible(false);
-        // TODO do the CP buttons
-      }
     }
 
     ListPanels[0].setVisible(true);
@@ -62,31 +52,20 @@ public class MainView {
       return;
 
     ListPanels[0].add(a);
-    if (useCPs)
-      CanvasPanels[0].add(a);
+
     for (int i : toAdds) {
       ListPanels[i].add(a);
-      if (useCPs)
-        CanvasPanels[i].add(a);
+
     }
   }
 
-  public void showPanel(boolean canvas, int panel) {
-    assert !(canvas && !useCPs);
+  public void showPanel(int panel) {
     assert panel <= ListPanels.length;
     for (ListPanel lp : ListPanels)
       lp.setVisible(false);
-    if (useCPs)
-      for (CanvasPanel cp : CanvasPanels)
-        cp.setVisible(false);
 
-    (canvas ? CanvasPanels[panel] : ListPanels[panel]).setVisible(true);
-    activePanel = canvas ? CanvasPanels[panel] : ListPanels[panel];
-  }
-
-  public void mouseDragged(MouseEvent e) {
-    if (activePanel instanceof CanvasPanel)
-      ((CanvasPanel) activePanel).drag(e);
+    ListPanels[panel].setVisible(true);
+    activePanel = ListPanels[panel];
   }
 
   public void mouseClicked(MouseEvent e) {
@@ -107,11 +86,8 @@ public class MainView {
 
   public void actionPerformed(ActionEvent e) {
     String label = e.getActionCommand();
-    boolean isCP = false;
-    if (label.contains("cp"))
-      isCP = true;
-    int identifier = Integer.parseInt(label.substring(2, label.length()));
-    showPanel(isCP, identifier);
+    int identifier = Integer.parseInt(label);
+    showPanel(identifier);
   }
 
 }

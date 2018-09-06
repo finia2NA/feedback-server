@@ -23,18 +23,18 @@ public class MainTest extends GraphicsProgram {
     Answer b = new Answer("Dieter Dietrich", "HALLÖCHEN MOTHERFUCKER");
     b.setZuordnung(2, 3);
     mv.add(b);
-    mv.showPanel(false, 2);
-    mv.showPanel(false, 3);
-    mv.showPanel(false, 0);
+    mv.showPanel(2);
+    mv.showPanel(3);
+    mv.showPanel(0);
   }
 
   @Override
   public void mouseClicked(MouseEvent e) {
     mv.mouseClicked(e);
   }
-  
+
   @Override
   public void keyTyped(KeyEvent e) {
-    
+
   }
 }

@@ -7,13 +7,17 @@ import acm.graphics.GCompound;
 import acm.graphics.GObject;
 
 @SuppressWarnings("serial")
-public abstract class Panel extends GCompound {
+public abstract class ScrollingPanel extends GCompound {
   GCompound content = new GCompound();
   ArrayList<SpeechBubble> SpeechBubbles = new ArrayList<SpeechBubble>();
   boolean abstractDEBUG = false;
   boolean DEBUG = false;
 
   public abstract void add(Answer answer);
+
+  public abstract void scroll(double amount);
+
+  public abstract void resetScroll();
 
   public SpeechBubble getSBat(double x, double y) {
     GObject clicked = getElementAt(x, y);

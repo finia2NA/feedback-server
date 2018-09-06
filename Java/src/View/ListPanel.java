@@ -8,7 +8,7 @@ import acm.graphics.GPoint;
  *
  */
 @SuppressWarnings("serial")
-public class ListPanel extends Panel {
+public class ListPanel extends ScrollingPanel {
   private final static double DISTANCE_BETWEEN_SBS = 10;
   private final static GPoint base = new GPoint(10, 0);
 

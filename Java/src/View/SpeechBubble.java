@@ -14,11 +14,11 @@ public class SpeechBubble extends GCompound {
   String name;
   String message;
   Color color = Color.lightGray;
-  final static int NAMEFONTSIZE = 30;
-  public final static int MESSAGEFONTSIZE = 20;
+  final static int NAMEFONTSIZE = 50;
+  public final static int MESSAGEFONTSIZE = 35;
   public final static String FONT = "*";
   // Entscheidet über Zeilenumbruch
-  final static double MAXWIDTH = 400;
+  final static double MAXWIDTH = 1000;
 
   final static boolean DEBUG = true;
 
@@ -41,7 +41,7 @@ public class SpeechBubble extends GCompound {
     nameLabel.setLocation(5, nameLabel.getSize().getHeight());
     GCompound messageCompound = generateMessageCompound(message);
     add(nameLabel);
-    messageCompound.setLocation(nameLabel.getX() + 5, nameLabel.getY() + 20);
+    messageCompound.setLocation(nameLabel.getX() + 5, nameLabel.getY() + 30);
     add(messageCompound);
     GRoundRect outline = new GRoundRect(this.getSize().getWidth() + 10, this.getSize().getHeight());
     outline.setLocation(nameLabel.getX() - 5, nameLabel.getY() - nameLabel.getHeight() + 10);
@@ -78,7 +78,6 @@ public class SpeechBubble extends GCompound {
     double spaceWidth = space.getSize().getWidth();
     ArrayList<String> lines = getLines(words, spaceWidth);
 
-    // TODO: Calculate actual value;
     double messageOffset = space.getSize().getHeight();
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
