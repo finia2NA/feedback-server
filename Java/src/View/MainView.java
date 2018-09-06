@@ -7,16 +7,29 @@ import javax.swing.JButton;
 
 import Main.Answer;
 import acm.program.GraphicsProgram;
+import acm.program.Program;
 
 public class MainView {
   GraphicsProgram top;
   ListPanel[] ListPanels;
-  final static boolean DLP = false;
+  boolean MLPs = false;
   boolean DEBUG = false;
   private ScrollingPanel activePanel;
   private ListPanel focus = null;
+  private static int nMultiListpanels = 2;
 
   public MainView(GraphicsProgram top, int numberOfAreas) {
+    commonCore(top, numberOfAreas);
+  }
+
+  public MainView(GraphicsProgram top, boolean MLPs, int numberOfAreas) {
+    this.MLPs = MLPs;
+    commonCore(top, numberOfAreas);
+  }
+
+  public MainView(GraphicsProgram top, boolean MLPs, int numberOfAreas, boolean DEBUG) {
+    this.MLPs = MLPs;
+    this.DEBUG = DEBUG;
     commonCore(top, numberOfAreas);
   }
 
@@ -34,8 +47,7 @@ public class MainView {
       ListPanels[i] = new ListPanel(DEBUG);
       top.add(ListPanels[i]);
       ListPanels[i].setVisible(false);
-      top.add(new JButton(""+i), top.EAST);
-      top.addActionListeners();
+      top.add(new JButton("" + i), Program.EAST);
     }
 
     ListPanels[0].setVisible(true);

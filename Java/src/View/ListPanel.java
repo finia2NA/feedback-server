@@ -25,8 +25,8 @@ public class ListPanel extends ScrollingPanel {
     add(content);
   }
 
-  public void scroll(double howMuch) {
-    content.move(0, howMuch);
+  public void scroll(double amount) {
+    content.move(0, amount);
   }
 
   public void resetScroll() {

@@ -29,12 +29,12 @@ public class Main extends GraphicsProgram {
 
   public void init() {
     AnswerList = new CopyOnWriteArrayList<Answer>();
-    ;
     try {
       println("Expecting data in: " + path);
 
       printIP();
       addMouseListeners();
+      addActionListeners();
     } catch (Exception e) {
       e.printStackTrace();
     }

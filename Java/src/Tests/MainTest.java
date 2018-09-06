@@ -1,5 +1,6 @@
 package Tests;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -14,6 +15,7 @@ public class MainTest extends GraphicsProgram {
   public void init() {
     mv = new MainView(this, 3);
     addMouseListeners();
+    addActionListeners();
   }
 
   public void run() {
@@ -36,5 +38,9 @@ public class MainTest extends GraphicsProgram {
   @Override
   public void keyTyped(KeyEvent e) {
 
+  }
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    mv.actionPerformed(e);
   }
 }
