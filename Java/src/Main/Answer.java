@@ -14,7 +14,14 @@ public class Answer {
     this.message = message;
   }
 
-  public Answer(String name, String message, int[] zuordnungen) {
+  // public Answer(String name, String message, int[] zuordnungen) {
+  // super();
+  // this.name = name;
+  // this.message = message;
+  // this.zuordnungen = zuordnungen;
+  // }
+
+  public Answer(String name, String message, int... zuordnungen) {
     super();
     this.name = name;
     this.message = message;

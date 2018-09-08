@@ -34,15 +34,17 @@ public class Main extends GraphicsProgram {
 
       printIP();
       addMouseListeners();
-      addActionListeners();
+//      addActionListeners();
     } catch (Exception e) {
       e.printStackTrace();
     }
     view = new MainView(this, howManyCategories, false);
     // readLine("Press Enter to start");
+    initBaseAnswers();
   }
 
   public void run() {
+    addActionListeners();
     WatchThread watcher = new WatchThread();
     this.watcher = watcher;
     watcher.init(path, AnswerList, DEBUG);
@@ -63,8 +65,11 @@ public class Main extends GraphicsProgram {
     String s = readLine(AnswerList.get(numAnswer).toString());
     String[] split = s.split("\\s+");
     ArrayList<Integer> zuordnungen = new ArrayList<Integer>();
+    // TODO check if this works
+    if ((split.length == 1 && Integer.parseInt(split[0]) == 0) || s.equals(""))
+      return;
     for (int i = 0; i < split.length; i++) {
-      //TODO: deal with the case that the user inputs something that is not an int
+      // TODO: deal with the case that the user inputs something that is not an int
       int zahl = Integer.parseInt(split[i]);
       if (zahl > howManyCategories) {
         System.err.println("please don't give me any numbers over howManyCategories.");
@@ -82,6 +87,27 @@ public class Main extends GraphicsProgram {
     view.add(AnswerList.get(numAnswer));
   }
 
+  private void initBaseAnswers() {
+    {
+      Answer a = new Answer("Informatikmensch #0", "angemessener umgang mit menschen", 1, 4);
+      view.add(a);
+    }
+    view.add(new Answer("Informatikmensch #1", "Empathiefähigkeit", 2));
+    view.add(new Answer("Informatikmensch #2",
+        "Emotionale Stabilität bzw stufe \"der Kontrolle\" beim interagieren mit den Mitmenschen. Fällt in den Umgang mit den Mitmwnschen mit rein",
+        2));
+    view.add(new Answer("Informatikmensch #3", "Kritikfähigkeit", 2));
+    view.add(new Answer("Informatikmensch #4",
+        "Toleranz, Hilfsbereitschaft, Selbstbewusstsein, Menschenkenntnis, Kompromissbereitschaft, Einsicht. Sind vielleicht eher \"Randeigenschaften\"",
+        1, 2));
+    view.add(new Answer("Informatikmensch #5", "Die Fähigkeit, mit anderen Leuten  saufen zu können.", 4));
+    view.add(new Answer("Informatikmensch #6", "Kommunikation?", 3, 4));
+    view.add(new Answer("Informatikmensch #7",
+        "Ich denke ein sozial kompetenter Mensch ist dazu in der Lage sich in andere Menschen hinein zu versetzen und über sein eigenes verlangen hinnaus zu denken :)",
+        2));
+
+  }
+
   private void printIP() throws SocketException, UnknownHostException {
     DatagramSocket socket;
     socket = new DatagramSocket();
@@ -94,8 +120,8 @@ public class Main extends GraphicsProgram {
   public void mouseClicked(MouseEvent e) {
     view.mouseClicked(e);
   }
-  
+
   public void actionPerformed(ActionEvent e) {
     view.actionPerformed(e);
- }
+  }
 }

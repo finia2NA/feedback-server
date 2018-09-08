@@ -71,10 +71,9 @@ public class MainView {
       System.err.println("Please init ZUORDNUNGEN b4 adding to MainView");
       return;
     }
+    SPs[0].add(a);
     if (toAdds.length == 0)
       return;
-
-    SPs[0].add(a);
 
     for (int i : toAdds) {
       SPs[i].add(a);

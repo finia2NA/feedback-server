@@ -23,7 +23,7 @@ public class MainTest extends GraphicsProgram {
     a.setZuordnung(1, 3);
     mv.add(a);
     Answer b = new Answer("Dieter Dietrich", "HALLÖCHEN MOTHERFUCKER");
-    b.setZuordnung(2, 3);
+    b.setZuordnung(0);
     mv.add(b);
     mv.showPanel(2);
     mv.showPanel(3);
