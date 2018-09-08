@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 import Main.Answer;
+import Main.MyUtil;
 import acm.program.GraphicsProgram;
 import acm.program.Program;
 
@@ -17,6 +18,7 @@ public class MainView {
   private ScrollingPanel activePanel;
   private ListPanel focus = null;
   private static int nMultiListpanels = 2;
+  private static double SCROLLAMOUNT = 50;
 
   public MainView(GraphicsProgram top, int numberOfAreas) {
     commonCore(top, numberOfAreas);
@@ -42,7 +44,7 @@ public class MainView {
     this.top = top;
 
     if (MLPs) {
-   // +1 weil die liste 0 alle antworten zeigt.
+      // +1 weil die liste 0 alle antworten zeigt.
       SPs = new MultiListPanel[numberOfAreas + 1];
       for (int i = 0; i < numberOfAreas + 1; i++) {
         SPs[i] = new MultiListPanel(nMultiListpanels);
@@ -60,6 +62,9 @@ public class MainView {
         top.add(new JButton("" + i), Program.EAST);
       }
     }
+    top.add(new JButton("Up"), Program.EAST);
+    top.add(new JButton("Down"), Program.EAST);
+    top.add(new JButton("Reset"), Program.EAST);
 
     SPs[0].setVisible(true);
     activePanel = SPs[0];
@@ -107,8 +112,21 @@ public class MainView {
 
   public void actionPerformed(ActionEvent e) {
     String label = e.getActionCommand();
-    int identifier = Integer.parseInt(label);
-    showPanel(identifier);
+    // 2 scrolling cases
+    if (label.equals("Down")) {
+      activePanel.scroll(SCROLLAMOUNT);
+    } else if (label.equals("Up")) {
+      activePanel.scroll(-SCROLLAMOUNT);
+      
+    } else if (label.equals("Reset")) {
+      activePanel.resetScroll();;
+      // Select cases
+    } else {
+      if (!MyUtil.isIntegerString(label))
+        return;
+      int identifier = Integer.parseInt(label);
+      showPanel(identifier);
+    }
   }
 
 }

@@ -39,7 +39,7 @@ public class Main extends GraphicsProgram {
     }
     view = new MainView(this, howManyCategories, false);
     // readLine("Press Enter to start");
-    // initBaseAnswers();
+     initBaseAnswers();
   }
 
   public void run() {
