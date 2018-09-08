@@ -34,13 +34,12 @@ public class Main extends GraphicsProgram {
 
       printIP();
       addMouseListeners();
-//      addActionListeners();
     } catch (Exception e) {
       e.printStackTrace();
     }
     view = new MainView(this, howManyCategories, false);
     // readLine("Press Enter to start");
-    initBaseAnswers();
+    // initBaseAnswers();
   }
 
   public void run() {
@@ -62,7 +61,10 @@ public class Main extends GraphicsProgram {
   }
 
   private void processAnswer(int numAnswer) {
-    String s = readLine(AnswerList.get(numAnswer).toString());
+    String s;
+    do {
+      s = readLine(AnswerList.get(numAnswer).toString());
+    } while (!MyUtil.isIntegerString(s));
     String[] split = s.split("\\s+");
     ArrayList<Integer> zuordnungen = new ArrayList<Integer>();
     // TODO check if this works
