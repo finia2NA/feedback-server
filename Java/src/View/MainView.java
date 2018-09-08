@@ -40,6 +40,12 @@ public class MainView {
     commonCore(top, numberOfAreas);
   }
 
+  /**
+   * common code to all the contructors. generates buttons and sets active panel.
+   * 
+   * @param top
+   * @param numberOfAreas
+   */
   private void commonCore(GraphicsProgram top, int numberOfAreas) {
     this.top = top;
 
@@ -70,6 +76,11 @@ public class MainView {
     activePanel = SPs[0];
   }
 
+  /**
+   * adds a Speechbubble representing the answer to all lists that apply.
+   * 
+   * @param a
+   */
   public void add(Answer a) {
     int[] toAdds = a.getZuordnungen();
     if (toAdds == null) {
@@ -117,9 +128,10 @@ public class MainView {
       activePanel.scroll(SCROLLAMOUNT);
     } else if (label.equals("Up")) {
       activePanel.scroll(-SCROLLAMOUNT);
-      
+
     } else if (label.equals("Reset")) {
-      activePanel.resetScroll();;
+      activePanel.resetScroll();
+      ;
       // Select cases
     } else {
       if (!MyUtil.isIntegerString(label))

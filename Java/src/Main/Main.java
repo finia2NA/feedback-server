@@ -37,9 +37,9 @@ public class Main extends GraphicsProgram {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    view = new MainView(this, howManyCategories, false);
+    view = new MainView(this, false, howManyCategories, false);
     // readLine("Press Enter to start");
-     initBaseAnswers();
+    initBaseAnswers();
   }
 
   public void run() {

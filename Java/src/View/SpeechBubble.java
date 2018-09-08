@@ -18,7 +18,7 @@ public class SpeechBubble extends GCompound {
   public final static int MESSAGEFONTSIZE = 35;
   public final static String FONT = "*";
   // Entscheidet über Zeilenumbruch
-  final static double MAXWIDTH = 1000;
+  final static double MAXWIDTH = 800;
 
   final static boolean DEBUG = true;
 
