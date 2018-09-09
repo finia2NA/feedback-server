@@ -97,6 +97,11 @@ public class MainView {
   }
 
   public void showPanel(int panel) {
+    if(focus!=null) {
+      top.remove(focus);
+      focus = null;
+      activePanel.setVisible(true);
+    }
     assert panel <= SPs.length;
     for (ScrollingPanel lp : SPs)
       lp.setVisible(false);
@@ -123,7 +128,7 @@ public class MainView {
 
   public void actionPerformed(ActionEvent e) {
     String label = e.getActionCommand();
-    // 2 scrolling cases
+    // 3 scrolling cases
     if (label.equals("Down")) {
       activePanel.scroll(SCROLLAMOUNT);
     } else if (label.equals("Up")) {
